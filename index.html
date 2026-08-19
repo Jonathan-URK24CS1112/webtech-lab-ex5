@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jonathan URK24CS1112 - Fitness Equipment Store | Sign In & Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">F</div>
+        <div>
+          <h1>Jonathan URK24CS1112 Fitness Equipment Store</h1>
+				<p>Simple access for members and new customers</p>
+			</div>
+		</div>
+
+		<nav aria-label="Primary">
+			<ul class="menu">
+				<li class="has-dropdown">
+					<a href="#home">Home</a>
+					<ul class="dropdown">
+						<li><a href="#signin">Sign In</a></li>
+						<li><a href="#signup">Sign Up</a></li>
+						<li><a href="#contact">Contact</a></li>
+					</ul>
+				</li>
+				<li><a href="#about">About</a></li>
+				<li><a href="#models">Model</a></li>
+				<li><a href="#others">Others</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+      <section id="home" class="hero">
+        <h2>Welcome to Jonathan URK24CS1112 - Fitness Equipment Store</h2>
+
+        <p id="intro" class="intro">
+          Browse simple workout essentials and use the forms below to sign in or create a new account.
+        </p>
+
+        <p id="demo">Click the button to see a message.</p>
+        <button id="message-button" type="button">Click Me</button>
+
+        <label for="equipment">Choose equipment:</label>
+        <select id="equipment">
+          <option value="">Select an item</option>
+          <option value="Treadmill">Treadmill</option>
+          <option value="Dumbbells">Dumbbells</option>
+          <option value="Exercise Bike">Exercise Bike</option>
+        </select>
+      </section>
+
+      <section id="welcome-message" class="welcome-message" aria-live="polite" tabindex="-1" hidden>
+        Welcome to Jonathan URK24CS1112 Fitness Store
+      </section>
+
+		<section class="forms" aria-label="Authentication forms">
+			<article class="card" id="signin">
+				<h2>Sign In</h2>
+				<form id="signin-form">
+					<label for="signin-user">Username / Email</label>
+					<input id="signin-user" type="text" placeholder="Enter username or email">
+
+					<label for="signin-password">Password</label>
+					<input id="signin-password" type="password" placeholder="Enter password">
+
+					<input type="submit" value="Sign In">
+				</form>
+			</article>
+
+			<article class="card" id="signup">
+				<h2>Sign Up</h2>
+				<form>
+					<label for="signup-name">Name</label>
+					<input id="signup-name" type="text" placeholder="Enter your name">
+
+					<label for="signup-email">Email</label>
+					<input id="signup-email" type="email" placeholder="Enter your email">
+
+					<label for="signup-password">Password</label>
+					<input id="signup-password" type="password" placeholder="Create a password">
+
+					<input type="submit" value="Sign Up">
+				</form>
+			</article>
+		</section>
+	</main>
+
+	<footer id="contact">
+    <p>Jonathan URK24CS1112 - Fitness Store, Coimbatore</p>
+		<p>2026-2027. Web Technology Lab Batch 2. All Rights Reserved.</p>
+	</footer>
+
+    <div id="signin-popup" class="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="popup-title" hidden>
+      <div class="popup">
+        <button id="close-popup" class="close-popup" type="button" aria-label="Close sign-in message">&times;</button>
+        <h2 id="popup-title">Sign-in successful</h2>
+        <p id="popup-message"></p>
+        <button id="popup-ok" class="popup-ok" type="button">Continue</button>
+      </div>
+    </div>
+
+     <script>
+      // Finding an HTML element by ID
+      var myElement = document.getElementById("intro");
+
+      // Finding HTML elements by tag name
+      var paragraphs = document.getElementsByTagName("p");
+
+      // Finding HTML elements by class name
+      var introElements = document.getElementsByClassName("intro");
+
+      // Finding HTML elements by CSS selector
+      var selectedParagraphs = document.querySelectorAll("p.intro");
+
+      var demo = document.getElementById("demo");
+      var messageButton = document.getElementById("message-button");
+      var equipment = document.getElementById("equipment");
+      var welcomeMessage = document.getElementById("welcome-message");
+      var signinForm = document.getElementById("signin-form");
+      var signinPopup = document.getElementById("signin-popup");
+      var popupMessage = document.getElementById("popup-message");
+      var closePopup = document.getElementById("close-popup");
+      var popupOk = document.getElementById("popup-ok");
+
+      // JavaScript event: button click
+      messageButton.addEventListener("click", function (event) {
+        event.stopPropagation();
+        demo.innerHTML = "Welcome to Jonathan URK24CS1112 Fitness Store";
+        welcomeMessage.hidden = false;
+        welcomeMessage.focus();
+      });
+
+      // JavaScript event: selection change
+      equipment.addEventListener("change", function (event) {
+        event.stopPropagation();
+
+        if (equipment.value !== "") {
+          demo.innerHTML = "You selected: " + equipment.value;
+        }
+      });
+
+      equipment.addEventListener("click", function (event) {
+        event.stopPropagation();
+      });
+
+      // JavaScript event: sign-in form submission
+      signinForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        var username = document.getElementById("signin-user").value.trim();
+        var password = document.getElementById("signin-password").value.trim();
+
+        if (username !== "" && password !== "") {
+          popupMessage.innerHTML = "Welcome, " + username + "! You are now signed in.";
+          signinPopup.hidden = false;
+          closePopup.focus();
+        }
+      });
+
+      function hideSigninPopup() {
+        signinPopup.hidden = true;
+      }
+
+      closePopup.addEventListener("click", hideSigninPopup);
+      popupOk.addEventListener("click", hideSigninPopup);
+
+      signinPopup.addEventListener("click", function (event) {
+        if (event.target === signinPopup) {
+          hideSigninPopup();
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          hideSigninPopup();
+        }
+      });
+
+      // Document click event
+      document.addEventListener("click", function () {
+        document.getElementById("demo").innerHTML = "Jonathan URK24CS1112";
+      });
+    </script>
+</body>
+</html>
